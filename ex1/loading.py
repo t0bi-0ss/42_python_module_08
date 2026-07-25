@@ -41,15 +41,10 @@ def check_enviroment() -> None:
         print("\t\t>>> No Virtual enviroment was detected <<<")
 
 
-def check_dependencies() -> None:
+def check_dependencies(
+        required_dependencies: dict[str, str]) -> bool:
     """Checks if dependencies are effectively installed with
     their respective correct version"""
-
-    required_dependencies = {
-        "numpy": "2.2.6",
-        "matplotlib": "3.10.9",
-        "pandas": "2.3.3"
-    }
 
     distributions = importlib.metadata.distributions()
     installed_packages = {}
@@ -79,7 +74,8 @@ def check_dependencies() -> None:
             )
     if missing:
         print(INSTALL_GUIDE)
-        sys.exit()
+        return False
+    return True
 
 
 def data_analysis() -> None:
@@ -135,5 +131,11 @@ if __name__ == "__main__":
 
     print("\nLOADING STATUS: Loading programs...")
 
-    check_dependencies()
+    required_dependencies = {
+            "numpy": "2.2.6",
+            "matplotlib": "3.10.9",
+            "pandas": "2.3.3"
+        }
+    if not check_dependencies(required_dependencies):
+        sys.exit()
     data_analysis()    
