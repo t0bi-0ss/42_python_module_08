@@ -1,6 +1,7 @@
 import sys
 import os
 
+
 # Get packages install path
 pkg_install_path = ""
 for element in sys.path:
@@ -30,14 +31,15 @@ if env_name:
 
     print("Current Python:", sys.executable)
     print(f"Virtual Eviroment: {env_name}")
-    print(os.path.abspath(sys.prefix))
+    print("Eviroment Path:", os.path.abspath(sys.prefix))
 
     print("\nSUCCESS: You're in an isolated enviroment!")
     print(
         "Safe to install packages without affecting\n"
-        " the global system\n"
+        "the global system\n"
     )
 
+    print("Package installation Path:")
     print(pkg_install_path)
 
 else:
