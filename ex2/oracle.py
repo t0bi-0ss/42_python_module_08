@@ -6,7 +6,7 @@ import os
 
 import sys
 
-        
+
 def show_config() -> None:
     """
     Show configuration accoring to environment variables
@@ -29,11 +29,11 @@ def show_config() -> None:
             print(f"Mode: {os.getenv('MATRIX_MODE')}")
 
             connected = "Connected" if os.getenv('DATABASE_URL')\
-            else "Not connected"
+                else "Not connected"
             print(f"Database: {connected} to local instance")
 
             access = "Authenticated" if os.getenv('API_KEY')\
-            else "Not authenticated"
+                else "Not authenticated"
             print(f"API Access: {access}")
 
             log = str(os.getenv('MATRIX_MODE'))
@@ -41,11 +41,10 @@ def show_config() -> None:
             print(f"Log Level: {level}")
 
             online = "Online" if os.getenv('ZION_ENDPOINT') \
-            else "Offline"
+                else "Offline"
             print(f"Zion Network: {online}")
         else:
             print("[ERROR] Mode not recognized or set")
-            print("\nORACLE STATUS: closing...")
 
 
 def security_check() -> None:
@@ -54,7 +53,9 @@ def security_check() -> None:
     """
 
     try:
-        from dotenv import load_dotenv
+        # load_dotenv loads environment and .env variables values
+        # dotenv_values only looks inside .env
+        from dotenv import load_dotenv, dotenv_values
     except ImportError:
         print(
             "Error: python-dotenv package is missing.\n"
@@ -65,6 +66,11 @@ def security_check() -> None:
         print("\nEnviroment security check:")
         load_dotenv()
 
+    if not dotenv_values():
+        print(
+            "[WARNING] No '.env' file found. '.env'"
+            " file must be located on the same directory"
+        )
     secrets = False
     properly = True
     override = True
@@ -84,6 +90,9 @@ def security_check() -> None:
             properly = False
 
         os.environ[var] = "OVERRIDE"
+
+        # If changed to True loading values from .env file overrides production
+        load_dotenv(override=False)
         if os.environ.get(var) != "OVERRIDE":
             override = False
 
@@ -101,8 +110,6 @@ def security_check() -> None:
         print(" [KO] Production override unavailable")
     else:
         print(" [OK] Production override available")
-
-
 
 
 if __name__ == "__main__":

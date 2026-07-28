@@ -96,7 +96,6 @@ def data_analysis() -> None:
     values_2 = np.random.randn(num_points)
     values_3 = np.random.randn(num_points)
 
-
     print("Generating visualization...")
     # Step 3: Organize data into a pandas DataFrame
     data_frame = pd.DataFrame({
@@ -108,10 +107,27 @@ def data_analysis() -> None:
 
     # Step 4: Create the plot using matplotlib
     plt.figure(figsize=(10, 5))
-    plt.plot(data_frame['Time'], data_frame['Signal_1'], color='cyan', linestyle='-', linewidth=2)
-    plt.plot(data_frame['Time'], data_frame['Signal_2'], color='red', linestyle=':', linewidth=2)
-    plt.plot(data_frame['Time'], data_frame['Signal_3'], color='green', linestyle='dotted', linewidth=2)
-
+    plt.plot(
+        data_frame['Time'],
+        data_frame['Signal_1'],
+        color='cyan',
+        linestyle='-',
+        linewidth=2
+    )
+    plt.plot(
+        data_frame['Time'],
+        data_frame['Signal_2'],
+        color='red',
+        linestyle=':',
+        linewidth=2
+    )
+    plt.plot(
+        data_frame['Time'],
+        data_frame['Signal_3'],
+        color='green',
+        linestyle='dotted',
+        linewidth=2
+    )
 
     # Step 5: Customize the visual styling
     plt.title(f'Simulated Matrix Signal ({num_points} Data Points)')
@@ -120,10 +136,11 @@ def data_analysis() -> None:
     plt.grid(True, linestyle='--', alpha=0.6)
 
     print("\nAnalysis complete!")
-    # Step 6: Save the plot to a file and clean up resources
+    # Step 6: Save the plot to a file
     plt.savefig('matrix_analysis.png')
     print("Results saved to: matrix_analysis.png")
     plt.close()
+
 
 if __name__ == "__main__":
 
@@ -132,10 +149,10 @@ if __name__ == "__main__":
     print("\nLOADING STATUS: Loading programs...")
 
     required_dependencies = {
-            "numpy": "2.2.6",
-            "matplotlib": "3.10.9",
-            "pandas": "2.3.3"
-        }
+        "numpy": "2.2.6",
+        "matplotlib": "3.10.9",
+        "pandas": "2.3.3"
+    }
     if not check_dependencies(required_dependencies):
         sys.exit()
-    data_analysis()    
+    data_analysis()
