@@ -13,7 +13,7 @@ def show_config() -> None:
     """
 
     try:
-        from dotenv import load_dotenv
+        from dotenv import load_dotenv  # type: ignore
     except ImportError:
         print(
             "Error: python-dotenv package is missing.\n"
@@ -115,6 +115,6 @@ def security_check() -> None:
 if __name__ == "__main__":
     print("ORACLE STATUS: Reading the Matrix...\n")
 
-    env_vars = show_config()
+    show_config()
 
     security_check()

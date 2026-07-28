@@ -81,8 +81,8 @@ def check_dependencies(
 def data_analysis() -> None:
     # Import needed modules
     import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
+    import pandas as pd  # type: ignore
+    import matplotlib.pyplot as plt  # type: ignore
 
     # Step 1: Generate a random number of data points (between 50 and 200)
     num_points = np.random.randint(100, 1000)
